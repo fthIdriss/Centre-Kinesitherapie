@@ -421,7 +421,7 @@ export default function Home() {
       </section>
 
       {/* ── Floating WhatsApp Button ── */}
-      <button onClick={handleWhatsApp} className="fixed bottom-8 right-8 md:bottom-12 md:right-12 px-4 md:px-6 py-3 md:py-4 rounded-full bg-accent text-primary shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 z-40 font-semibold text-sm md:text-base animate-bounce" title="Contacter via WhatsApp">
+      <button onClick={handleWhatsApp} className="fixed bottom-8 right-8 md:bottom-12 md:right-12 px-4 md:px-6 py-3 md:py-4 rounded-full bg-accent text-primary shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 inline-flex items-center justify-center gap-2 z-40 font-semibold text-sm md:text-base animate-bounce whitespace-nowrap" title="Contacter via WhatsApp">
         <WhatsAppIcon />
         <span className="hidden sm:inline">Nous Contacter</span>
       </button>
