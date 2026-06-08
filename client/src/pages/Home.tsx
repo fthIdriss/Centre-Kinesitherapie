@@ -236,7 +236,7 @@ export default function Home() {
         <div className="relative h-full flex items-center">
           <div className="container">
             <div style={{ opacity: heroInView ? 1 : 0, transform: heroInView ? "translateY(0)" : "translateY(20px)", transition: "all 1s ease-out" }}>
-              <p className="text-accent text-sm tracking-widest uppercase mb-3 font-medium">Centre Hlioui Iskander</p>
+              <p className="text-accent text-sm tracking-widest uppercase mb-3 font-medium">Cabinet Hlioui Iskander</p>
               <h2 className="text-4xl md:text-5xl lg:text-6xl text-white mb-4 leading-tight" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
                 Kinésithérapie<br />& Rééducation
               </h2>
