@@ -332,10 +332,10 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="max-w-5xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="w-full">
+            <div className="flex gap-6 overflow-x-auto pb-4 px-4 md:px-0 snap-x snap-mandatory" style={{ scrollBehavior: "smooth" }}>
               {testimonials.map((testimonial, idx) => (
-                <div key={idx} style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "translateY(0)" : "translateY(40px)", transitionDelay: `${idx * 100}ms`, transition: "all 0.7s ease-out" }} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border-l-4 border-accent">
+                <div key={idx} style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "translateY(0)" : "translateY(40px)", transitionDelay: `${idx * 100}ms`, transition: "all 0.7s ease-out" }} className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border-l-4 border-accent snap-start">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex gap-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -354,12 +354,12 @@ export default function Home() {
                 </div>
               ))}
             </div>
-            <div className="mt-8 text-center">
+          </div>
+          <div className="mt-8 text-center">
               <a href="https://www.google.com/maps/place/Centre+Hlioui+Iskander" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors text-sm font-medium">
                 <GoogleIcon />
                 <span>Voir tous les 4,942 avis sur Google</span>
               </a>
-            </div>
           </div>
         </div>
       </section>
