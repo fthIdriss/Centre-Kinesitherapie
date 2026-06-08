@@ -241,7 +241,7 @@ export default function Home() {
                 Kinésithérapie<br />& Rééducation
               </h2>
               <p className="text-white/80 text-lg mb-8 max-w-md">Votre bien-être, notre priorité. Une prise en charge personnalisée et professionnelle.</p>
-              <Button onClick={handleWhatsApp} className="bg-accent hover:bg-accent/90 text-primary font-semibold text-base px-6 md:px-8 py-4 md:py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-2 md:gap-3 hover:scale-105 active:scale-95 text-sm md:text-base flex-wrap">
+              <Button onClick={handleWhatsApp} className="bg-accent hover:bg-accent/90 text-primary font-semibold px-4 md:px-8 py-3 md:py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-1 md:gap-3 hover:scale-105 active:scale-95 text-xs md:text-base whitespace-nowrap md:whitespace-normal">
                 <WhatsAppIcon />
                 <span>Prendre Rendez-vous</span>
               </Button>
@@ -410,10 +410,10 @@ export default function Home() {
           <div style={{ opacity: contactInView ? 1 : 0, transform: contactInView ? "translateY(0)" : "translateY(30px)", transition: "all 1s ease-out" }} className="mt-16 bg-secondary p-8 rounded-lg">
             <div className="max-w-2xl mx-auto text-center">
               <p className="text-lg mb-6 text-foreground/70">Prêt à commencer votre parcours de récupération?</p>
-              <Button onClick={handleWhatsApp} className="button-gold text-lg px-8 py-6 hover:scale-105 transition-transform duration-300 inline-flex items-center gap-2">
+              <Button onClick={handleWhatsApp} className="button-gold text-sm md:text-lg px-4 md:px-8 py-3 md:py-6 hover:scale-105 transition-transform duration-300 inline-flex items-center gap-1 md:gap-2 flex-wrap justify-center">
                 <WhatsAppIcon />
                 <span>Prendre Rendez-vous via WhatsApp</span>
-                <ChevronRightIcon />
+                <span className="hidden md:inline"><ChevronRightIcon /></span>
               </Button>
             </div>
           </div>
