@@ -212,12 +212,12 @@ export default function Home() {
       </header>
 
       {/* ── Hero ── */}
-      <section ref={heroRef} className="relative overflow-hidden h-screen min-h-screen bg-gray-900">
-        <div className="absolute inset-0 w-full h-full">
+      <section ref={heroRef} className="relative overflow-hidden h-screen min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
           <img
             src="/manus-storage/mainimg_8d183b5f.png"
             alt="Physiotherapy Treatment"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
             style={{ transform: `translateY(${scrollY * 0.25}px)`, willChange: "transform" }}
             loading="eager"
           />
@@ -318,23 +318,34 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="max-w-2xl mx-auto">
-            <Card className="p-8 md:p-12 border-0 bg-primary text-white text-center transition-all duration-700" style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "scale(1)" : "scale(0.95)" }}>
-              <div className="flex justify-center gap-1 mb-6">
-                {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                  <StarIcon key={i} filled />
-                ))}
-              </div>
-              <p className="text-lg md:text-xl mb-6 leading-relaxed italic">"{testimonials[currentTestimonial].text}"</p>
-              <p className="text-accent mb-8" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>— {testimonials[currentTestimonial].name}</p>
-              <div className="flex justify-center gap-2 flex-wrap">
-                {testimonials.map((_, idx) => (
-                  <button key={idx} onClick={() => setCurrentTestimonial(idx)} className={`px-3 py-1 rounded-full text-sm transition-all ${idx === currentTestimonial ? "bg-accent text-primary font-semibold scale-110" : "bg-white/20 text-white/70 hover:bg-white/30"}`} title={`Avis de ${testimonials[idx].name}`}>
-                    {idx + 1}
-                  </button>
-                ))}
-              </div>
-            </Card>
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {testimonials.map((testimonial, idx) => (
+                <div key={idx} style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "translateY(0)" : "translateY(40px)", transitionDelay: `${idx * 100}ms`, transition: "all 0.7s ease-out" }} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border-l-4 border-accent">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex gap-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <span key={i} className="text-yellow-400 text-lg">★</span>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-foreground/80 text-sm leading-relaxed mb-4 italic">"{testimonial.text}"</p>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="font-semibold text-primary text-sm" style={{ fontFamily: "'Playfair Display', serif" }}>{testimonial.name}</p>
+                      <p className="text-xs text-foreground/60">Avis Google</p>
+                    </div>
+                    <GoogleIcon />
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8 text-center">
+              <a href="https://www.google.com/maps/place/Centre+Hlioui+Iskander" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors text-sm font-medium">
+                <GoogleIcon />
+                <span>Voir tous les 4,942 avis sur Google</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
