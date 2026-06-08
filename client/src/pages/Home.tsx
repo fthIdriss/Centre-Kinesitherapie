@@ -118,11 +118,11 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Auto-rotate testimonials every 5s
+  // Auto-rotate testimonials every 6s with smooth transitions
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
-    }, 5000);
+      setCurrentTestimonial(prev => (prev + 1) % 5);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
@@ -212,19 +212,20 @@ export default function Home() {
       </header>
 
       {/* ── Hero ── */}
-      <section ref={heroRef} className="relative overflow-hidden h-screen min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="absolute inset-0 w-full h-full flex items-center justify-center">
-          <img
-            src="/manus-storage/mainimg_8d183b5f.png"
-            alt="Physiotherapy Treatment"
-            className="w-full h-full object-contain"
-            style={{ transform: `translateY(${scrollY * 0.25}px)`, willChange: "transform" }}
-            loading="eager"
-          />
+      <section ref={heroRef} className="relative overflow-hidden h-96 md:h-[500px] lg:h-[600px] bg-gray-900 flex items-center justify-center py-8">
+        <div className="relative w-full h-full flex items-center justify-center px-4">
+          <div className="relative w-full h-full max-w-4xl rounded-xl overflow-hidden shadow-2xl" style={{ boxShadow: "0 20px 60px rgba(0, 0, 0, 0.5)" }}>
+            <img
+              src="/manus-storage/mainimg_8d183b5f.png"
+              alt="Physiotherapy Treatment"
+              className="w-full h-full object-contain bg-white"
+              style={{ transform: `translateY(${scrollY * 0.15}px)`, willChange: "transform" }}
+              loading="eager"
+            />
+          </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
         {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70 text-xs tracking-widest uppercase animate-bounce">
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70 text-xs tracking-widest uppercase animate-bounce">
           <span>Défiler</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
         </div>
