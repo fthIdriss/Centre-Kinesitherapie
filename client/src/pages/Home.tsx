@@ -161,18 +161,23 @@ export default function Home() {
       </header>
 
       {/* Hero Section - Image Only Full Screen */}
-      <section ref={heroRef} className="relative overflow-hidden h-screen min-h-screen">
-        <img
-          src="/manus-storage/mainimg_8d183b5f.png"
-          alt="Physiotherapy Treatment"
-          className="w-full h-full object-cover transition-transform duration-1000"
-          style={{
-            opacity: heroInView ? 1 : 0.9,
-            transform: `scale(1) translateY(${scrollY * 0.3}px)`,
-          }}
-        />
+      <section ref={heroRef} className="relative overflow-hidden h-screen min-h-screen bg-gray-900">
+        <div className="absolute inset-0 w-full h-full" style={{ willChange: 'transform' }}>
+          <img
+            src="/manus-storage/mainimg_8d183b5f.png"
+            alt="Physiotherapy Treatment"
+            className="w-full h-full object-cover"
+            style={{
+              transform: `translateY(${scrollY * 0.3}px)`,
+              willChange: 'transform',
+              backfaceVisibility: 'hidden',
+              perspective: '1000px',
+            }}
+            loading="eager"
+          />
+        </div>
         {/* Subtle Overlay */}
-        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
       </section>
 
       {/* Services Section with Staggered Card Animation */}
