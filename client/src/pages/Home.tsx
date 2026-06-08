@@ -111,6 +111,17 @@ export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const scrollCarousel = (direction: string) => {
+    if (carouselRef.current) {
+      const scrollAmount = 400;
+      carouselRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -332,8 +343,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-full">
-            <div className="flex gap-6 overflow-x-auto pb-4 px-4 md:px-0 snap-x snap-mandatory" style={{ scrollBehavior: "smooth" }}>
+          <div className="w-full relative">
+            <div ref={carouselRef} className="flex gap-6 overflow-x-auto pb-4 px-4 md:px-0 snap-x snap-mandatory scroll-smooth" style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}>
               {testimonials.map((testimonial, idx) => (
                 <div key={idx} style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "translateY(0)" : "translateY(40px)", transitionDelay: `${idx * 100}ms`, transition: "all 0.7s ease-out" }} className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border-l-4 border-accent snap-start">
                   <div className="flex items-start justify-between mb-3">
@@ -354,6 +365,13 @@ export default function Home() {
                 </div>
               ))}
             </div>
+            {/* Navigation buttons */}
+            <button onClick={() => scrollCarousel('left')} className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 w-10 h-10 bg-accent hover:bg-accent/90 text-primary rounded-full items-center justify-center shadow-lg transition-all hover:scale-110 z-10">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button onClick={() => scrollCarousel('right')} className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 w-10 h-10 bg-accent hover:bg-accent/90 text-primary rounded-full items-center justify-center shadow-lg transition-all hover:scale-110 z-10">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
           </div>
           <div className="mt-8 text-center">
               <a href="https://www.google.com/maps/place/Centre+Hlioui+Iskander" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors text-sm font-medium">
