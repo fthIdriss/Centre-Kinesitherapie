@@ -15,18 +15,28 @@ export default function Home() {
 
   const testimonials = [
     {
-      name: "Patient",
-      text: "Excellent suivi et prise en charge. Le professionnel est très attentif et à l'écoute.",
+      name: "Med Basly",
+      text: "Grand merci pour votre accompagnement, votre patience et votre écoute. Votre travail fait vraiment la différence, et je ressens une nette amélioration grâce à vous. Je recommande vivement!",
       rating: 5,
     },
     {
-      name: "Patient",
-      text: "Service impeccable, cabinet accueillant et moderne. Je recommande vivement!",
+      name: "Ghada Sbouai",
+      text: "Un super Kiné! Merci à Skander qui a su soulager mes douleurs cervicales, dorsales lombaires alors que je souffrais depuis plus d'un an. Vraiment très à l'écoute, je la recommande vivement!",
       rating: 5,
     },
     {
-      name: "Patient",
-      text: "Techniques modernes et accompagnement personnalisé. Très satisfait des résultats.",
+      name: "KAMMOUN ASMA",
+      text: "Prise en charge rapide, équipe professionnel et à l'écoute! Résultat plus que parfait. Reprise de la mobilité dès la première séance. Je recommande vivement le cabinet!",
+      rating: 5,
+    },
+    {
+      name: "Mohamed Mannai",
+      text: "Kinésithérapeute d'un grand professionnalisme, à l'écoute et doté d'une excellente maîtrise technique. La prise en charge est rigoureuse, personnalisée et orientée vers des résultats concrets.",
+      rating: 5,
+    },
+    {
+      name: "Othmen Hadouej",
+      text: "Excellent kinésithérapeute, très professionnel, jamais en retard, à l'écoute de ses patients. Il applique une méthode qui va au delà du simple massage.",
       rating: 5,
     },
   ];
@@ -250,7 +260,15 @@ export default function Home() {
       <section className="py-20 lg:py-32 bg-white">
         <div className="container">
           <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Témoignages</h2>
-          <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
+          <div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
+          
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-secondary px-6 py-3 rounded-full">
+              <span className="text-2xl">⭐</span>
+              <span className="font-bold text-lg text-primary">4.9</span>
+              <span className="text-foreground/70">basé sur 4,942 avis Google</span>
+            </div>
+          </div>
 
           <div className="max-w-2xl mx-auto">
             <Card className="p-8 md:p-12 border-0 bg-primary text-white text-center">
@@ -365,8 +383,9 @@ export default function Home() {
               </div>
               <h3 className="text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Adresse</h3>
               <p className="text-foreground/70">
-                Avenue Habib Bourguiba<br />
-                Tunis, Tunisie
+                Sahabi 4, 03<br />
+                3100 Rue Argentine<br />
+                Kairouan 3100
               </p>
             </div>
 
@@ -375,7 +394,7 @@ export default function Home() {
                 <Clock className="text-primary" size={24} />
               </div>
               <h3 className="text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Horaires</h3>
-              <p className="text-foreground/70">Lun-Ven: 9h-18h<br />Sam: 9h-13h</p>
+              <p className="text-foreground/70">Lun-Ven: 8h-18h<br />Sam: 8h-13h</p>
             </div>
           </div>
 
