@@ -7,7 +7,7 @@ import { useState } from "react";
  * Cabinet Hlioui Iskander - Professional Physiotherapy Website
  * Design: Dark Navy (#001F3F) & Gold (#D4AF37) brand colors
  * Typography: Playfair Display (headings), Inter (body)
- * Layout: Modern, professional, with alternating image-text sections
+ * Layout: Professional hero with diagonal accent, modern sections
  */
 
 export default function Home() {
@@ -84,13 +84,15 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
       <header className="sticky top-0 z-50 bg-white shadow-sm">
-        <div className="container flex items-center justify-between py-4">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-gold-accent text-xl font-bold">
-              HI
-            </div>
+        <div className="container flex items-center justify-between py-3">
+          <div className="flex items-center gap-4">
+            <img
+              src="/manus-storage/8e1e606a-41cf-4f6e-b8ef-069f28fd61df_removalai_preview_05da2dd9.png"
+              alt="Cabinet Hlioui Logo"
+              className="w-14 h-14"
+            />
             <div className="hidden sm:block">
-              <h1 className="text-lg font-bold text-primary" style={{ fontFamily: "'Playfair Display', serif" }}>Cabinet Hlioui</h1>
+              <h1 className="text-sm font-bold text-primary" style={{ fontFamily: "'Playfair Display', serif" }}>Cabinet Hlioui</h1>
               <p className="text-xs text-muted-foreground">Kinésithérapie</p>
             </div>
           </div>
@@ -117,55 +119,84 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-          {/* Left: Text Content */}
-          <div className="bg-primary text-white flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-16 lg:py-24">
+      {/* Hero Section - Professional Design */}
+      <section className="relative overflow-hidden bg-primary">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch min-h-screen lg:min-h-[600px]">
+          {/* Left: Content */}
+          <div className="relative flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-16 lg:py-24 bg-primary text-white z-10">
             <div className="max-w-xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl leading-tight mb-6" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
-                Cabinet Hlioui Iskander
+              <h1 className="text-3xl md:text-4xl lg:text-5xl leading-tight mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
+                CABINET
               </h1>
-              <p className="text-lg md:text-xl mb-4 font-light">
-                Kinésithérapie & Rééducation Fonctionnelle
+              <h2 className="text-3xl md:text-4xl lg:text-5xl leading-tight mb-6 text-accent" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
+                HLIOUI ISKANDER
+              </h2>
+              <p className="text-sm md:text-base tracking-widest mb-6 font-light">
+                KINÉSITHÉRAPIE
               </p>
-              <p className="text-accent text-lg md:text-xl mb-8" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
+              
+              <div className="w-16 h-1 bg-accent mb-8"></div>
+              
+              <p className="text-base md:text-lg mb-8 leading-relaxed text-white/95">
                 L'expertise en mouvement, votre bien-être au quotidien.
               </p>
-              <p className="text-white/90 mb-8 leading-relaxed">
-                Prise en charge personnalisée pour votre bien-être et votre récupération. Nous accompagnons nos patients avec une approche professionnelle et bienveillante.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={handleWhatsApp}
-                  className="button-gold"
-                >
-                  Prendre Rendez-vous
-                </Button>
-                <Button
-                  onClick={handleWhatsApp}
-                  variant="outline"
-                  className="border-white text-white hover:bg-white/10"
-                >
-                  WhatsApp
-                </Button>
+
+              {/* Service Icons */}
+              <div className="grid grid-cols-4 gap-4 mb-12 py-6 border-t border-b border-white/20">
+                <div className="text-center">
+                  <div className="text-2xl mb-2">🏃</div>
+                  <p className="text-xs text-white/80 leading-tight">Rééducation<br/>Fonctionnelle</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl mb-2">⚽</div>
+                  <p className="text-xs text-white/80 leading-tight">Rééducation<br/>du Sportif</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl mb-2">💆</div>
+                  <p className="text-xs text-white/80 leading-tight">Thérapie<br/>Manuelle</p>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl mb-2">🛡️</div>
+                  <p className="text-xs text-white/80 leading-tight">Prévention &<br/>Bien-être</p>
+                </div>
+              </div>
+
+              {/* Contact Info */}
+              <div className="flex flex-col sm:flex-row gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <MapPin size={16} className="text-accent flex-shrink-0" />
+                  <span>Kairouan, Tunisie</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Phone size={16} className="text-accent flex-shrink-0" />
+                  <span>+216 71 960 100</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Right: Image */}
-          <div className="relative h-96 lg:h-auto min-h-96 lg:min-h-screen">
+          {/* Right: Image with Diagonal Accent */}
+          <div className="relative h-96 lg:h-auto min-h-96 lg:min-h-[600px] overflow-hidden">
             <img
-              src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/hero-physiotherapy-NKmkDfqmuCKyxNwcb34L5G.webp"
-              alt="Physiotherapy session"
+              src="/manus-storage/mainimg_8d183b5f.png"
+              alt="Physiotherapy Treatment"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-transparent"></div>
+            {/* Diagonal Gold Accent */}
+            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-primary/10"></div>
           </div>
-        </div>
 
-        {/* Diagonal Accent */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-accent opacity-10 transform rotate-45"></div>
+          {/* Diagonal Divider SVG */}
+          <svg
+            className="absolute left-0 top-0 w-full h-full pointer-events-none hidden lg:block"
+            viewBox="0 0 1200 600"
+            preserveAspectRatio="none"
+            style={{ position: 'absolute', top: 0, left: 0 }}
+          >
+            <polygon points="0,0 600,0 1200,600 0,600" fill="white" opacity="0" />
+            <polyline points="600,0 1200,600" stroke="#D4AF37" strokeWidth="8" fill="none" />
+          </svg>
+        </div>
       </section>
 
       {/* Services Section */}
@@ -281,18 +312,23 @@ export default function Home() {
                 "{testimonials[currentTestimonial].text}"
               </p>
               <p className="text-accent mb-8" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
-                - {testimonials[currentTestimonial].name}
+                — {testimonials[currentTestimonial].name}
               </p>
 
-              <div className="flex justify-center gap-4">
+              <div className="flex justify-center gap-2 flex-wrap">
                 {testimonials.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setCurrentTestimonial(idx)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      idx === currentTestimonial ? "bg-accent w-8" : "bg-white/30"
+                    className={`px-3 py-1 rounded-full text-sm transition-all ${
+                      idx === currentTestimonial
+                        ? "bg-accent text-primary font-semibold"
+                        : "bg-white/20 text-white/70 hover:bg-white/30"
                     }`}
-                  />
+                    title={`Avis de ${testimonials[idx].name}`}
+                  >
+                    {idx + 1}
+                  </button>
                 ))}
               </div>
             </Card>
@@ -430,11 +466,13 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xl font-bold">
-                  HI
-                </div>
+                <img
+                  src="/manus-storage/8e1e606a-41cf-4f6e-b8ef-069f28fd61df_removalai_preview_05da2dd9.png"
+                  alt="Cabinet Hlioui Logo"
+                  className="w-12 h-12"
+                />
                 <div>
-                  <p className="text-white" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Cabinet Hlioui</p>
+                  <p className="font-display text-white" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Cabinet Hlioui</p>
                   <p className="text-xs text-white/70">Kinésithérapie</p>
                 </div>
               </div>
@@ -456,10 +494,10 @@ export default function Home() {
             <div>
               <h4 className="mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Nous Suivre</h4>
               <div className="flex gap-4">
-                <a href="https://www.instagram.com/cabinet_hlioui_iskander/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition">
-                  f
+                <a href="https://www.google.com/maps/place/Centre+Hlioui+Iskander" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition" title="Google Maps">
+                  📍
                 </a>
-                <a href="https://www.instagram.com/cabinet_hlioui_iskander/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition">
+                <a href="https://www.instagram.com/cabinet_hlioui_iskander/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition" title="Instagram">
                   📷
                 </a>
               </div>
