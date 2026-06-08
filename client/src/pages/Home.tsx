@@ -213,7 +213,7 @@ export default function Home() {
       {/* ── Hero ── */}
       <section ref={heroRef} className="relative overflow-hidden h-[480px] md:h-[580px] lg:h-[680px]">
         <img
-          src="/manus-storage/mainimg_8d183b5f.png"
+          src="/manus-storage/mainimg_d8472b49.png"
           alt="Physiotherapy Treatment"
           className="absolute inset-0 w-full h-full object-cover object-center"
           style={{ transform: `translateY(${scrollY * 0.2}px) scale(1.1)`, willChange: "transform" }}
@@ -230,7 +230,7 @@ export default function Home() {
                 Kinésithérapie<br />& Rééducation
               </h2>
               <p className="text-white/80 text-lg mb-8 max-w-md">Votre bien-être, notre priorité. Une prise en charge personnalisée et professionnelle.</p>
-              <Button onClick={handleWhatsApp} className="button-gold text-base px-8 py-5 hover:scale-105 transition-transform duration-300 inline-flex items-center gap-2">
+              <Button onClick={handleWhatsApp} className="bg-accent hover:bg-accent/90 text-primary font-semibold text-base px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-3 hover:scale-105 active:scale-95">
                 <WhatsAppIcon />
                 <span>Prendre Rendez-vous</span>
               </Button>
