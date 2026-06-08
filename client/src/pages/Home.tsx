@@ -160,101 +160,19 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section - Professional Design with Parallax */}
-      <section ref={heroRef} className="relative overflow-hidden bg-primary">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch min-h-screen lg:min-h-[600px]">
-          {/* Left: Content with Fade-in Animation */}
-          <div 
-            className="relative flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-16 lg:py-24 bg-primary text-white z-10 transition-all duration-1000"
-            style={{
-              opacity: heroInView ? 1 : 0,
-              transform: heroInView ? "translateX(0)" : "translateX(-50px)",
-            }}
-          >
-            <div className="max-w-xl">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl leading-tight mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
-                CABINET
-              </h1>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl leading-tight mb-6 text-accent" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
-                HLIOUI ISKANDER
-              </h2>
-              <p className="text-sm md:text-base tracking-widest mb-6 font-light">
-                KINÉSITHÉRAPIE
-              </p>
-              
-              <div className="w-16 h-1 bg-accent mb-8"></div>
-              
-              <p className="text-base md:text-lg mb-8 leading-relaxed text-white/95">
-                L'expertise en mouvement, votre bien-être au quotidien.
-              </p>
-
-              {/* Service Icons with Staggered Animation */}
-              <div className="grid grid-cols-4 gap-4 mb-12 py-6 border-t border-b border-white/20">
-                {[0, 1, 2, 3].map((idx) => (
-                  <div 
-                    key={idx}
-                    className="text-center transition-all duration-700"
-                    style={{
-                      opacity: heroInView ? 1 : 0,
-                      transform: heroInView ? "translateY(0)" : "translateY(20px)",
-                      transitionDelay: `${idx * 100}ms`,
-                    }}
-                  >
-                    <div className="text-2xl mb-2">
-                      {["🏃", "⚽", "💆", "🛡️"][idx]}
-                    </div>
-                    <p className="text-xs text-white/80 leading-tight">
-                      {["Rééducation\nFonctionnelle", "Rééducation\ndu Sportif", "Thérapie\nManuelle", "Prévention &\nBien-être"][idx]}
-                    </p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Contact Info */}
-              <div className="flex flex-col sm:flex-row gap-4 text-sm">
-                <div className="flex items-center gap-2">
-                  <MapPin size={16} className="text-accent flex-shrink-0" />
-                  <span>Kairouan, Tunisie</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone size={16} className="text-accent flex-shrink-0" />
-                  <span>+216 71 960 100</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Image with Parallax Effect */}
-          <div 
-            className="relative h-96 lg:h-auto min-h-96 lg:min-h-[600px] overflow-hidden"
-            style={{
-              transform: `translateY(${scrollY * 0.3}px)`,
-            }}
-          >
-            <img
-              src="/manus-storage/mainimg_8d183b5f.png"
-              alt="Physiotherapy Treatment"
-              className="w-full h-full object-cover transition-transform duration-1000"
-              style={{
-                opacity: heroInView ? 1 : 0.8,
-                transform: heroInView ? "scale(1)" : "scale(1.05)",
-              }}
-            />
-            {/* Diagonal Gold Accent */}
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-primary/10"></div>
-          </div>
-
-          {/* Diagonal Divider SVG */}
-          <svg
-            className="absolute left-0 top-0 w-full h-full pointer-events-none hidden lg:block"
-            viewBox="0 0 1200 600"
-            preserveAspectRatio="none"
-            style={{ position: 'absolute', top: 0, left: 0 }}
-          >
-            <polygon points="0,0 600,0 1200,600 0,600" fill="white" opacity="0" />
-            <polyline points="600,0 1200,600" stroke="#D4AF37" strokeWidth="8" fill="none" />
-          </svg>
-        </div>
+      {/* Hero Section - Image Only Full Screen */}
+      <section ref={heroRef} className="relative overflow-hidden h-screen min-h-screen">
+        <img
+          src="/manus-storage/mainimg_8d183b5f.png"
+          alt="Physiotherapy Treatment"
+          className="w-full h-full object-cover transition-transform duration-1000"
+          style={{
+            opacity: heroInView ? 1 : 0.9,
+            transform: `scale(1) translateY(${scrollY * 0.3}px)`,
+          }}
+        />
+        {/* Subtle Overlay */}
+        <div className="absolute inset-0 bg-black/10"></div>
       </section>
 
       {/* Services Section with Staggered Card Animation */}
