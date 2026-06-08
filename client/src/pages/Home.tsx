@@ -410,9 +410,9 @@ export default function Home() {
           <div style={{ opacity: contactInView ? 1 : 0, transform: contactInView ? "translateY(0)" : "translateY(30px)", transition: "all 1s ease-out" }} className="mt-16 bg-secondary p-8 rounded-lg">
             <div className="max-w-2xl mx-auto text-center">
               <p className="text-lg mb-6 text-foreground/70">Prêt à commencer votre parcours de récupération?</p>
-              <Button onClick={handleWhatsApp} className="button-gold text-sm md:text-lg px-4 md:px-8 py-3 md:py-6 hover:scale-105 transition-transform duration-300 inline-flex items-center gap-1 md:gap-2 flex-wrap justify-center">
+              <Button onClick={handleWhatsApp} className="bg-accent hover:bg-accent/90 text-primary font-semibold px-6 md:px-10 py-3 md:py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-2 md:gap-3 hover:scale-105 active:scale-95 text-sm md:text-base">
                 <WhatsAppIcon />
-                <span>Prendre Rendez-vous via WhatsApp</span>
+                <span>Prendre Rendez-vous</span>
                 <span className="hidden md:inline"><ChevronRightIcon /></span>
               </Button>
             </div>
@@ -421,8 +421,9 @@ export default function Home() {
       </section>
 
       {/* ── Floating WhatsApp Button ── */}
-      <button onClick={handleWhatsApp} className="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-accent text-primary shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-40 font-bold text-2xl animate-bounce" title="Contacter via WhatsApp">
+      <button onClick={handleWhatsApp} className="fixed bottom-8 right-8 md:bottom-12 md:right-12 px-4 md:px-6 py-3 md:py-4 rounded-full bg-accent text-primary shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 z-40 font-semibold text-sm md:text-base animate-bounce" title="Contacter via WhatsApp">
         <WhatsAppIcon />
+        <span className="hidden sm:inline">Nous Contacter</span>
       </button>
 
       {/* ── Footer ── */}
