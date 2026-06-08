@@ -131,7 +131,6 @@ export default function Home() {
   const [aboutRef, aboutInView] = useInView();
   const [whyRef, whyInView] = useInView();
   const [testimonialsRef, testimonialsInView] = useInView();
-  const [galleryRef, galleryInView] = useInView();
   const [contactRef, contactInView] = useInView();
 
   const testimonials = [
@@ -179,8 +178,8 @@ export default function Home() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {["Services","À Propos","Galerie","Contact"].map(label => (
-              <a key={label} href={`#${label === "À Propos" ? "about" : label === "Galerie" ? "gallery" : label === "Contact" ? "contact" : "services"}`}
+            {["Services","À Propos","Contact"].map(label => (
+              <a key={label} href={`#${label === "À Propos" ? "about" : label === "Contact" ? "contact" : "services"}`}
                 className="text-sm font-medium text-foreground/70 hover:text-accent transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-accent after:transition-all hover:after:w-full">
                 {label}
               </a>
@@ -203,7 +202,7 @@ export default function Home() {
         {/* Mobile menu */}
         {menuOpen && (
           <div className="md:hidden bg-white border-t border-border px-4 py-4 flex flex-col gap-4">
-            {[["services","Services"],["about","À Propos"],["gallery","Galerie"],["contact","Contact"]].map(([href, label]) => (
+            {[["services","Services"],["about","À Propos"],["contact","Contact"]].map(([href, label]) => (
               <a key={href} href={`#${href}`} className="text-sm font-medium py-1 hover:text-accent transition-colors" onClick={() => setMenuOpen(false)}>{label}</a>
             ))}
             <Button onClick={handleWhatsApp} className="button-gold w-full">Rendez-vous</Button>
@@ -212,16 +211,30 @@ export default function Home() {
       </header>
 
       {/* ── Hero ── */}
-      <section ref={heroRef} className="relative overflow-hidden h-96 md:h-[500px] lg:h-[600px] bg-gray-900 flex items-center justify-center py-8">
-        <div className="relative w-full h-full flex items-center justify-center px-4">
-          <div className="relative w-full h-full max-w-4xl rounded-xl overflow-hidden shadow-2xl" style={{ boxShadow: "0 20px 60px rgba(0, 0, 0, 0.5)" }}>
-            <img
-              src="/manus-storage/mainimg_8d183b5f.png"
-              alt="Physiotherapy Treatment"
-              className="w-full h-full object-contain bg-white"
-              style={{ transform: `translateY(${scrollY * 0.15}px)`, willChange: "transform" }}
-              loading="eager"
-            />
+      <section ref={heroRef} className="relative overflow-hidden h-[480px] md:h-[580px] lg:h-[680px]">
+        <img
+          src="/manus-storage/mainimg_8d183b5f.png"
+          alt="Physiotherapy Treatment"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+          style={{ transform: `translateY(${scrollY * 0.2}px) scale(1.1)`, willChange: "transform" }}
+          loading="eager"
+        />
+        {/* Subtle gradient overlay for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/40 to-transparent" />
+        {/* Hero text */}
+        <div className="relative h-full flex items-center">
+          <div className="container">
+            <div style={{ opacity: heroInView ? 1 : 0, transform: heroInView ? "translateY(0)" : "translateY(20px)", transition: "all 1s ease-out" }}>
+              <p className="text-accent text-sm tracking-widest uppercase mb-3 font-medium">Centre Hlioui Iskander</p>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl text-white mb-4 leading-tight" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
+                Kinésithérapie<br />& Rééducation
+              </h2>
+              <p className="text-white/80 text-lg mb-8 max-w-md">Votre bien-être, notre priorité. Une prise en charge personnalisée et professionnelle.</p>
+              <Button onClick={handleWhatsApp} className="button-gold text-base px-8 py-5 hover:scale-105 transition-transform duration-300 inline-flex items-center gap-2">
+                <WhatsAppIcon />
+                <span>Prendre Rendez-vous</span>
+              </Button>
+            </div>
           </div>
         </div>
         {/* Scroll hint */}
@@ -351,31 +364,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Gallery ── */}
-      <section id="gallery" ref={galleryRef} className="py-20 lg:py-32 bg-secondary">
-        <div className="container">
-          <div style={{ opacity: galleryInView ? 1 : 0, transform: galleryInView ? "translateY(0)" : "translateY(30px)", transition: "all 1s ease-out" }}>
-            <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Galerie</h2>
-            <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-reception-Bd93Jd8r8kMDhpun2hTuYN.webp", title: "Réception" },
-              { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-treatment-room-Czj9jMy7o4TRqB8phH7zrk.webp", title: "Salle de Traitement" },
-              { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-equipment-2e4GBcbXDNiCx2b6VRVisA.webp", title: "Équipement Moderne" },
-              { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-professional-fXTFTAb8SLa56obygYU3u.webp", title: "Notre Équipe" },
-            ].map((item, idx) => (
-              <div key={idx} style={{ opacity: galleryInView ? 1 : 0, transform: galleryInView ? "translateY(0)" : "translateY(40px)", transitionDelay: `${idx * 100}ms`, transition: "all 0.7s ease-out" }} className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow group cursor-pointer h-64 md:h-72">
-                <img src={item.src} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-primary/40 group-hover:bg-primary/60 transition-colors flex items-end p-4">
-                  <p className="text-white" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>{item.title}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Contact ── */}
       <section id="contact" ref={contactRef} className="py-20 lg:py-32 bg-white">
         <div className="container">
@@ -439,7 +427,6 @@ export default function Home() {
               <ul className="space-y-2 text-sm text-white/70">
                 <li><a href="#services" className="hover:text-accent transition">Services</a></li>
                 <li><a href="#about" className="hover:text-accent transition">À Propos</a></li>
-                <li><a href="#gallery" className="hover:text-accent transition">Galerie</a></li>
                 <li><a href="#contact" className="hover:text-accent transition">Contact</a></li>
               </ul>
             </div>
