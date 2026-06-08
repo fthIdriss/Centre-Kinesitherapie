@@ -157,7 +157,7 @@ export default function Home() {
 
   const handleWhatsApp = () => {
     const msg = encodeURIComponent("Bonjour, je souhaite prendre rendez-vous.");
-    window.open(`https://wa.me/21671960100?text=${msg}`, "_blank");
+    window.open(`https://wa.me/21621806322?text=${msg}`, "_blank");
   };
 
   const isScrolled = scrollY > 60;
@@ -373,7 +373,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { Icon: PhoneIcon, title: "Téléphone", content: "+216 71 960 100" },
+              { Icon: PhoneIcon, title: "Téléphone", content: "+216 21 806 322" },
               { Icon: MailIcon, title: "Email", content: "contact@cabinet-hlioui.tn" },
               { Icon: MapPinIcon, title: "Adresse", content: "Sahabi 4, 03\n3100 Rue Argentine\nKairouan 3100" },
               { Icon: ClockIcon, title: "Horaires", content: "Lun-Ven: 8h-18h\nSam: 8h-13h" },
