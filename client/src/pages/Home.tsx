@@ -241,7 +241,7 @@ export default function Home() {
                 Kinésithérapie<br />& Rééducation
               </h2>
               <p className="text-white/80 text-lg mb-8 max-w-md">Votre bien-être, notre priorité. Une prise en charge personnalisée et professionnelle.</p>
-              <Button onClick={handleWhatsApp} className="bg-accent hover:bg-accent/90 text-primary font-semibold text-base px-8 py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-3 hover:scale-105 active:scale-95">
+              <Button onClick={handleWhatsApp} className="bg-accent hover:bg-accent/90 text-primary font-semibold text-base px-6 md:px-8 py-4 md:py-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 inline-flex items-center gap-2 md:gap-3 hover:scale-105 active:scale-95 text-sm md:text-base flex-wrap">
                 <WhatsAppIcon />
                 <span>Prendre Rendez-vous</span>
               </Button>
@@ -389,10 +389,9 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Nous Contacter</h2>
             <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { Icon: PhoneIcon, title: "Téléphone", content: "+216 21 806 322" },
-              { Icon: MailIcon, title: "Email", content: "contact@cabinet-hlioui.tn" },
               { Icon: MapPinIcon, title: "Adresse", content: "Sahabi 4, 03\n3100 Rue Argentine\nKairouan 3100" },
               { Icon: ClockIcon, title: "Horaires", content: "Lun-Ven: 8h-18h\nSam: 8h-13h" },
             ].map((item, idx) => {
