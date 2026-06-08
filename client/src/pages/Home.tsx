@@ -1,17 +1,58 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Phone, Mail, MapPin, Clock, Star, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 /**
  * Cabinet Hlioui Iskander - Professional Physiotherapy Website
  * Design: Dark Navy (#001F3F) & Gold (#D4AF37) brand colors
  * Typography: Playfair Display (headings), Inter (body)
  * Layout: Professional hero with diagonal accent, modern sections
+ * Animation: Scroll-triggered fade-in, parallax, and staggered reveals
  */
+
+// Intersection Observer Hook for Scroll Animations
+const useInView = (options = {}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsInView(true);
+        observer.unobserve(entry.target);
+      }
+    }, { threshold: 0.1, ...options });
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [options]);
+
+  return [ref, isInView] as const;
+};
 
 export default function Home() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+
+  // Track scroll position for parallax effects
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Animation refs
+  const [heroRef, heroInView] = useInView();
+  const [servicesRef, servicesInView] = useInView();
+  const [aboutRef, aboutInView] = useInView();
+  const [whyRef, whyInView] = useInView();
+  const [testimonialsRef, testimonialsInView] = useInView();
+  const [galleryRef, galleryInView] = useInView();
+  const [contactRef, contactInView] = useInView();
 
   const testimonials = [
     {
@@ -81,7 +122,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-hidden">
       {/* Navigation Header */}
       <header className="sticky top-0 z-50 bg-white shadow-sm">
         <div className="container flex items-center justify-between py-3">
@@ -119,11 +160,17 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero Section - Professional Design */}
-      <section className="relative overflow-hidden bg-primary">
+      {/* Hero Section - Professional Design with Parallax */}
+      <section ref={heroRef} className="relative overflow-hidden bg-primary">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch min-h-screen lg:min-h-[600px]">
-          {/* Left: Content */}
-          <div className="relative flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-16 lg:py-24 bg-primary text-white z-10">
+          {/* Left: Content with Fade-in Animation */}
+          <div 
+            className="relative flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-16 lg:py-24 bg-primary text-white z-10 transition-all duration-1000"
+            style={{
+              opacity: heroInView ? 1 : 0,
+              transform: heroInView ? "translateX(0)" : "translateX(-50px)",
+            }}
+          >
             <div className="max-w-xl">
               <h1 className="text-3xl md:text-4xl lg:text-5xl leading-tight mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
                 CABINET
@@ -141,24 +188,26 @@ export default function Home() {
                 L'expertise en mouvement, votre bien-être au quotidien.
               </p>
 
-              {/* Service Icons */}
+              {/* Service Icons with Staggered Animation */}
               <div className="grid grid-cols-4 gap-4 mb-12 py-6 border-t border-b border-white/20">
-                <div className="text-center">
-                  <div className="text-2xl mb-2">🏃</div>
-                  <p className="text-xs text-white/80 leading-tight">Rééducation<br/>Fonctionnelle</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl mb-2">⚽</div>
-                  <p className="text-xs text-white/80 leading-tight">Rééducation<br/>du Sportif</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl mb-2">💆</div>
-                  <p className="text-xs text-white/80 leading-tight">Thérapie<br/>Manuelle</p>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl mb-2">🛡️</div>
-                  <p className="text-xs text-white/80 leading-tight">Prévention &<br/>Bien-être</p>
-                </div>
+                {[0, 1, 2, 3].map((idx) => (
+                  <div 
+                    key={idx}
+                    className="text-center transition-all duration-700"
+                    style={{
+                      opacity: heroInView ? 1 : 0,
+                      transform: heroInView ? "translateY(0)" : "translateY(20px)",
+                      transitionDelay: `${idx * 100}ms`,
+                    }}
+                  >
+                    <div className="text-2xl mb-2">
+                      {["🏃", "⚽", "💆", "🛡️"][idx]}
+                    </div>
+                    <p className="text-xs text-white/80 leading-tight">
+                      {["Rééducation\nFonctionnelle", "Rééducation\ndu Sportif", "Thérapie\nManuelle", "Prévention &\nBien-être"][idx]}
+                    </p>
+                  </div>
+                ))}
               </div>
 
               {/* Contact Info */}
@@ -175,12 +224,21 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right: Image with Diagonal Accent */}
-          <div className="relative h-96 lg:h-auto min-h-96 lg:min-h-[600px] overflow-hidden">
+          {/* Right: Image with Parallax Effect */}
+          <div 
+            className="relative h-96 lg:h-auto min-h-96 lg:min-h-[600px] overflow-hidden"
+            style={{
+              transform: `translateY(${scrollY * 0.3}px)`,
+            }}
+          >
             <img
               src="/manus-storage/mainimg_8d183b5f.png"
               alt="Physiotherapy Treatment"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-1000"
+              style={{
+                opacity: heroInView ? 1 : 0.8,
+                transform: heroInView ? "scale(1)" : "scale(1.05)",
+              }}
             />
             {/* Diagonal Gold Accent */}
             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-primary/10"></div>
@@ -199,10 +257,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 lg:py-32 bg-white">
+      {/* Services Section with Staggered Card Animation */}
+      <section id="services" ref={servicesRef} className="py-20 lg:py-32 bg-white">
         <div className="container">
-          <div className="text-center mb-16">
+          <div 
+            className="text-center mb-16 transition-all duration-1000"
+            style={{
+              opacity: servicesInView ? 1 : 0,
+              transform: servicesInView ? "translateY(0)" : "translateY(30px)",
+            }}
+          >
             <h2 className="text-4xl md:text-5xl mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Nos Services</h2>
             <div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
             <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
@@ -212,28 +276,43 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, idx) => (
-              <Card
+              <div
                 key={idx}
-                className="p-6 border-0 bg-secondary hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group"
+                style={{
+                  opacity: servicesInView ? 1 : 0,
+                  transform: servicesInView ? "translateY(0)" : "translateY(40px)",
+                  transitionDelay: `${idx * 100}ms`,
+                  transition: "all 0.7s ease-out",
+                }}
               >
-                <div className="text-4xl mb-4">{service.icon}</div>
-                <h3 className="text-lg mb-3 text-primary group-hover:text-accent transition" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
-                  {service.title}
-                </h3>
-                <p className="text-sm text-foreground/70 leading-relaxed">
-                  {service.description}
-                </p>
-              </Card>
+                <Card
+                  className="p-6 border-0 bg-secondary hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer group h-full"
+                >
+                  <div className="text-4xl mb-4 transition-transform duration-300 group-hover:scale-110">{service.icon}</div>
+                  <h3 className="text-lg mb-3 text-primary group-hover:text-accent transition" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-foreground/70 leading-relaxed">
+                    {service.description}
+                  </p>
+                </Card>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 lg:py-32 bg-primary text-white">
+      {/* About Section with Image Parallax */}
+      <section id="about" ref={aboutRef} className="py-20 lg:py-32 bg-primary text-white">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
+            <div 
+              className="transition-all duration-1000"
+              style={{
+                opacity: aboutInView ? 1 : 0,
+                transform: aboutInView ? "translateX(0)" : "translateX(-50px)",
+              }}
+            >
               <h2 className="text-4xl md:text-5xl mb-6" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>À Propos</h2>
               <div className="w-24 h-1 bg-accent mb-6"></div>
               <p className="text-lg mb-6 leading-relaxed text-white/90">
@@ -253,7 +332,13 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="relative">
+            <div 
+              className="relative transition-all duration-1000"
+              style={{
+                opacity: aboutInView ? 1 : 0,
+                transform: aboutInView ? `translateX(0) translateY(${scrollY * 0.2}px)` : `translateX(50px) translateY(${scrollY * 0.2}px)`,
+              }}
+            >
               <img
                 src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-professional-fXTFTAb8SLa56obygYU3u.webp"
                 alt="Iskander - Physiotherapist"
@@ -265,17 +350,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="py-20 lg:py-32 bg-secondary">
+      {/* Why Choose Us Section with Staggered Items */}
+      <section ref={whyRef} className="py-20 lg:py-32 bg-secondary">
         <div className="container">
-          <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Pourquoi Nous Choisir?</h2>
-          <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
+          <div 
+            className="transition-all duration-1000"
+            style={{
+              opacity: whyInView ? 1 : 0,
+              transform: whyInView ? "translateY(0)" : "translateY(30px)",
+            }}
+          >
+            <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Pourquoi Nous Choisir?</h2>
+            <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {whyChooseUs.map((reason, idx) => (
               <div
                 key={idx}
-                className="flex flex-col items-center text-center p-6 rounded-lg bg-white shadow-sm hover:shadow-lg transition-shadow"
+                style={{
+                  opacity: whyInView ? 1 : 0,
+                  transform: whyInView ? "translateY(0)" : "translateY(40px)",
+                  transitionDelay: `${idx * 100}ms`,
+                  transition: "all 0.7s ease-out",
+                }}
+                className="flex flex-col items-center text-center p-6 rounded-lg bg-white shadow-sm hover:shadow-lg hover:scale-105 transition-all duration-300"
               >
                 <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mb-4">
                   <span className="text-2xl text-accent">✓</span>
@@ -288,21 +387,35 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 lg:py-32 bg-white">
+      <section ref={testimonialsRef} className="py-20 lg:py-32 bg-white">
         <div className="container">
-          <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Témoignages</h2>
-          <div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
-          
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 bg-secondary px-6 py-3 rounded-full">
-              <span className="text-2xl">⭐</span>
-              <span className="font-bold text-lg text-primary">4.9</span>
-              <span className="text-foreground/70">basé sur 4,942 avis Google</span>
+          <div 
+            className="transition-all duration-1000"
+            style={{
+              opacity: testimonialsInView ? 1 : 0,
+              transform: testimonialsInView ? "translateY(0)" : "translateY(30px)",
+            }}
+          >
+            <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Témoignages</h2>
+            <div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
+            
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-secondary px-6 py-3 rounded-full">
+                <span className="text-2xl">⭐</span>
+                <span className="font-bold text-lg text-primary">4.9</span>
+                <span className="text-foreground/70">basé sur 4,942 avis Google</span>
+              </div>
             </div>
           </div>
 
           <div className="max-w-2xl mx-auto">
-            <Card className="p-8 md:p-12 border-0 bg-primary text-white text-center">
+            <Card 
+              className="p-8 md:p-12 border-0 bg-primary text-white text-center transition-all duration-700"
+              style={{
+                opacity: testimonialsInView ? 1 : 0,
+                transform: testimonialsInView ? "scale(1)" : "scale(0.95)",
+              }}
+            >
               <div className="flex justify-center gap-1 mb-6">
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
                   <Star key={i} size={20} className="fill-accent text-accent" />
@@ -322,7 +435,7 @@ export default function Home() {
                     onClick={() => setCurrentTestimonial(idx)}
                     className={`px-3 py-1 rounded-full text-sm transition-all ${
                       idx === currentTestimonial
-                        ? "bg-accent text-primary font-semibold"
+                        ? "bg-accent text-primary font-semibold scale-110"
                         : "bg-white/20 text-white/70 hover:bg-white/30"
                     }`}
                     title={`Avis de ${testimonials[idx].name}`}
@@ -336,112 +449,108 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section id="gallery" className="py-20 lg:py-32 bg-secondary">
+      {/* Gallery Section with Image Reveal Animation */}
+      <section id="gallery" ref={galleryRef} className="py-20 lg:py-32 bg-secondary">
         <div className="container">
-          <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Galerie</h2>
-          <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
+          <div 
+            className="transition-all duration-1000"
+            style={{
+              opacity: galleryInView ? 1 : 0,
+              transform: galleryInView ? "translateY(0)" : "translateY(30px)",
+            }}
+          >
+            <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Galerie</h2>
+            <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow group cursor-pointer h-64 md:h-72">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-reception-Bd93Jd8r8kMDhpun2hTuYN.webp"
-                alt="Reception"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-primary/40 group-hover:bg-primary/60 transition-colors flex items-end p-4">
-                <p className="text-white" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Réception</p>
+            {[
+              { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-reception-Bd93Jd8r8kMDhpun2hTuYN.webp", title: "Réception" },
+              { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-treatment-room-Czj9jMy7o4TRqB8phH7zrk.webp", title: "Salle de Traitement" },
+              { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-equipment-2e4GBcbXDNiCx2b6VRVisA.webp", title: "Équipement Moderne" },
+              { src: "https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-professional-fXTFTAb8SLa56obygYU3u.webp", title: "Notre Équipe" },
+            ].map((item, idx) => (
+              <div
+                key={idx}
+                style={{
+                  opacity: galleryInView ? 1 : 0,
+                  transform: galleryInView ? "translateY(0)" : "translateY(40px)",
+                  transitionDelay: `${idx * 100}ms`,
+                  transition: "all 0.7s ease-out",
+                }}
+                className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow group cursor-pointer h-64 md:h-72"
+              >
+                <img
+                  src={item.src}
+                  alt={item.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-primary/40 group-hover:bg-primary/60 transition-colors flex items-end p-4">
+                  <p className="text-white" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>{item.title}</p>
+                </div>
               </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow group cursor-pointer h-64 md:h-72">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-treatment-room-Czj9jMy7o4TRqB8phH7zrk.webp"
-                alt="Treatment Room"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-primary/40 group-hover:bg-primary/60 transition-colors flex items-end p-4">
-                <p className="text-white" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Salle de Traitement</p>
-              </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow group cursor-pointer h-64 md:h-72">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-equipment-2e4GBcbXDNiCx2b6VRVisA.webp"
-                alt="Equipment"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-primary/40 group-hover:bg-primary/60 transition-colors flex items-end p-4">
-                <p className="text-white" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Équipement Moderne</p>
-              </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition-shadow group cursor-pointer h-64 md:h-72">
-              <img
-                src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-professional-fXTFTAb8SLa56obygYU3u.webp"
-                alt="Professional"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-primary/40 group-hover:bg-primary/60 transition-colors flex items-end p-4">
-                <p className="text-white" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Notre Équipe</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 lg:py-32 bg-white">
+      <section id="contact" ref={contactRef} className="py-20 lg:py-32 bg-white">
         <div className="container">
-          <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Nous Contacter</h2>
-          <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Phone className="text-primary" size={24} />
-              </div>
-              <h3 className="text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Téléphone</h3>
-              <p className="text-foreground/70">+216 71 960 100</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Mail className="text-primary" size={24} />
-              </div>
-              <h3 className="text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Email</h3>
-              <p className="text-foreground/70">contact@cabinet-hlioui.tn</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <MapPin className="text-primary" size={24} />
-              </div>
-              <h3 className="text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Adresse</h3>
-              <p className="text-foreground/70">
-                Sahabi 4, 03<br />
-                3100 Rue Argentine<br />
-                Kairouan 3100
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <Clock className="text-primary" size={24} />
-              </div>
-              <h3 className="text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Horaires</h3>
-              <p className="text-foreground/70">Lun-Ven: 8h-18h<br />Sam: 8h-13h</p>
-            </div>
+          <div 
+            className="transition-all duration-1000"
+            style={{
+              opacity: contactInView ? 1 : 0,
+              transform: contactInView ? "translateY(0)" : "translateY(30px)",
+            }}
+          >
+            <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Nous Contacter</h2>
+            <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
           </div>
 
-          <div className="mt-16 bg-secondary p-8 rounded-lg">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Phone, title: "Téléphone", content: "+216 71 960 100" },
+              { icon: Mail, title: "Email", content: "contact@cabinet-hlioui.tn" },
+              { icon: MapPin, title: "Adresse", content: "Sahabi 4, 03\n3100 Rue Argentine\nKairouan 3100" },
+              { icon: Clock, title: "Horaires", content: "Lun-Ven: 8h-18h\nSam: 8h-13h" },
+            ].map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    opacity: contactInView ? 1 : 0,
+                    transform: contactInView ? "translateY(0)" : "translateY(40px)",
+                    transitionDelay: `${idx * 100}ms`,
+                    transition: "all 0.7s ease-out",
+                  }}
+                  className="text-center hover:scale-105 transition-transform duration-300"
+                >
+                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <Icon className="text-primary" size={24} />
+                  </div>
+                  <h3 className="text-lg mb-2" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>{item.title}</h3>
+                  <p className="text-foreground/70 whitespace-pre-line text-sm">{item.content}</p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div 
+            className="mt-16 bg-secondary p-8 rounded-lg transition-all duration-1000"
+            style={{
+              opacity: contactInView ? 1 : 0,
+              transform: contactInView ? "translateY(0)" : "translateY(30px)",
+            }}
+          >
             <div className="max-w-2xl mx-auto text-center">
               <p className="text-lg mb-6 text-foreground/70">
                 Prêt à commencer votre parcours de récupération?
               </p>
               <Button
                 onClick={handleWhatsApp}
-                className="button-gold text-lg px-8 py-6"
+                className="button-gold text-lg px-8 py-6 hover:scale-105 transition-transform duration-300"
               >
                 Prendre Rendez-vous via WhatsApp
                 <ChevronRight className="ml-2" size={20} />
@@ -454,7 +563,7 @@ export default function Home() {
       {/* Floating WhatsApp Button */}
       <button
         onClick={handleWhatsApp}
-        className="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-accent text-primary shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-40 font-bold text-2xl"
+        className="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-accent text-primary shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 flex items-center justify-center z-40 font-bold text-2xl animate-bounce"
         title="Contacter via WhatsApp"
       >
         💬
