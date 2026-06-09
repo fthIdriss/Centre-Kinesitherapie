@@ -65,6 +65,18 @@ const InstagramIcon = () => (
   </svg>
 );
 
+const TikTokIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.1 1.82 2.9 2.9 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-.96-.1z"/>
+  </svg>
+);
+
+const ThreadsIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.215-3.522-1.697-2.016-2.578-4.932-2.578-8.35 0-3.418.881-6.334 2.578-8.35 1.881-2.317 4.634-3.498 8.215-3.522h.007c2.052.013 3.922.572 5.563 1.66l-1.555 1.828c-1.274-.79-2.748-1.249-4.008-1.261h-.007c-2.928.02-5.119.906-6.547 2.635-1.315 1.565-1.986 3.773-1.986 6.61 0 2.837.671 5.045 1.986 6.61 1.428 1.729 3.619 2.615 6.547 2.635h.007c1.26-.012 2.734-.471 4.008-1.261l1.555 1.828c-1.641 1.088-3.511 1.647-5.563 1.66zm0-3.5c-2.275-.016-3.95-.728-5.017-2.12-.819-.977-1.238-2.65-1.238-4.88 0-2.23.419-3.903 1.238-4.88 1.067-1.392 2.742-2.104 5.017-2.12h.007c.802.008 1.632.191 2.461.545l-.861 1.012c-.567-.23-1.159-.35-1.6-.35h-.007c-1.556.012-2.698.524-3.428 1.555-.583.87-.88 2.162-.88 3.838 0 1.676.297 2.968.88 3.838.73 1.031 1.872 1.543 3.428 1.555h.007c.441 0 1.033-.12 1.6-.35l.861 1.012c-.829.354-1.659.537-2.461.545h-.007z"/>
+  </svg>
+);
+
 // Service SVG Icons
 const RunnerIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -285,7 +297,7 @@ export default function Home() {
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div style={{ opacity: aboutInView ? 1 : 0, transform: aboutInView ? "translateX(0)" : "translateX(-50px)", transition: "all 1s ease-out" }}>
-              <h2 className="text-4xl md:text-5xl mb-6" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>À Propos</h2>
+              <h2 className="text-4xl md:text-5xl mb-6 text-accent" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>À Propos</h2>
               <div className="w-24 h-1 bg-accent mb-6"></div>
               <p className="text-lg mb-6 leading-relaxed text-white/90">Cabinet spécialisé en kinésithérapie et rééducation fonctionnelle. Nous accompagnons nos patients dans leur récupération physique grâce à une approche personnalisée et professionnelle.</p>
               <p className="text-lg mb-8 leading-relaxed text-white/90">Avec des techniques modernes et un suivi rigoureux, nous nous engageons à vous offrir les meilleurs soins pour votre bien-être et votre mobilité.</p>
@@ -330,7 +342,7 @@ export default function Home() {
       </section>
 
       {/* ── Testimonials ── */}
-      <section ref={testimonialsRef} className="py-20 lg:py-32 bg-white">
+      <section ref={testimonialsRef} className="py-20 lg:py-32 bg-primary text-white">
         <div className="container">
           <div style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "translateY(0)" : "translateY(30px)", transition: "all 1s ease-out" }}>
             <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Témoignages</h2>
@@ -346,7 +358,7 @@ export default function Home() {
           <div className="w-full relative">
             <div ref={carouselRef} className="flex gap-6 overflow-x-auto pb-4 px-4 md:px-0 snap-x snap-mandatory scroll-smooth" style={{ scrollBehavior: "smooth", WebkitOverflowScrolling: "touch" }}>
               {testimonials.map((testimonial, idx) => (
-                <div key={idx} style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "translateY(0)" : "translateY(40px)", transitionDelay: `${idx * 100}ms`, transition: "all 0.7s ease-out" }} className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border-l-4 border-accent snap-start">
+                <div key={idx} style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "translateY(0)" : "translateY(40px)", transitionDelay: `${idx * 100}ms`, transition: "all 0.7s ease-out" }} className="flex-shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 border-l-4 border-accent snap-start text-foreground">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex gap-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -389,11 +401,12 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Nous Contacter</h2>
             <div className="w-24 h-1 bg-accent mx-auto mb-16"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { Icon: PhoneIcon, title: "Téléphone", content: "+216 21 806 322" },
               { Icon: MapPinIcon, title: "Adresse", content: "Sahabi 4, 03\n3100 Rue Argentine\nKairouan 3100" },
               { Icon: ClockIcon, title: "Horaires", content: "Lun-Ven: 8h-18h\nSam: 8h-13h" },
+              { Icon: MailIcon, title: "Email", content: "hlioui.iskander@gmail.com" },
             ].map((item, idx) => {
               const Icon = item.Icon;
               return (
@@ -456,6 +469,12 @@ export default function Home() {
                 </a>
                 <a href="https://www.instagram.com/cabinet_hlioui_iskander/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition" title="Instagram">
                   <InstagramIcon />
+                </a>
+                <a href="https://www.tiktok.com/@iskender.hlioui" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition" title="TikTok">
+                  <TikTokIcon />
+                </a>
+                <a href="https://www.threads.com/@cabinet_hlioui_iskander" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-accent hover:text-primary transition" title="Threads">
+                  <ThreadsIcon />
                 </a>
               </div>
             </div>
