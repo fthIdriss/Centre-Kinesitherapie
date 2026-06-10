@@ -312,8 +312,8 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div style={{ opacity: aboutInView ? 1 : 0, transform: aboutInView ? "translateX(0)" : "translateX(50px)", transition: "all 1s ease-out" }}>
-              <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-professional-fXTFTAb8SLa56obygYU3u.webp" alt="Iskander - Physiotherapist" className="rounded-lg shadow-2xl" />
+            <div style={{ opacity: aboutInView ? 1 : 0, transform: aboutInView ? "translateX(0)" : "translateX(50px)", transition: "all 1s ease-out" }} className="relative">
+              <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-professional-fXTFTAb8SLa56obygYU3u.webp" alt="Iskander - Physiotherapist" className="rounded-lg shadow-2xl w-full" />
               <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/20 rounded-full blur-3xl"></div>
             </div>
           </div>
@@ -345,13 +345,13 @@ export default function Home() {
       <section ref={testimonialsRef} className="py-20 lg:py-32 bg-primary text-white">
         <div className="container">
           <div style={{ opacity: testimonialsInView ? 1 : 0, transform: testimonialsInView ? "translateY(0)" : "translateY(30px)", transition: "all 1s ease-out" }}>
-            <h2 className="text-4xl md:text-5xl text-center mb-4" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Témoignages</h2>
+            <h2 className="text-4xl md:text-5xl text-center mb-4 text-accent" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>Témoignages</h2>
             <div className="w-24 h-1 bg-accent mx-auto mb-6"></div>
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 bg-secondary px-6 py-3 rounded-full">
+              <div className="inline-flex items-center gap-2 bg-white/10 px-6 py-3 rounded-full">
                 <span className="text-2xl">⭐</span>
-                <span className="font-bold text-lg text-primary">4.9</span>
-                <span className="text-foreground/70">basé sur 4,942 avis Google</span>
+                <span className="font-bold text-lg text-accent">4.9</span>
+                <span className="text-white/80">basé sur 4,942 avis Google</span>
               </div>
             </div>
           </div>
@@ -386,7 +386,7 @@ export default function Home() {
             </button>
           </div>
           <div className="mt-8 text-center">
-              <a href="https://www.google.com/maps/place/Centre+Hlioui+Iskander" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors text-sm font-medium">
+              <a href="https://www.google.com/maps/place/Centre+Hlioui+Iskander" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-white hover:text-accent transition-colors text-sm font-medium">
                 <GoogleIcon />
                 <span>Voir tous les 4,942 avis sur Google</span>
               </a>
