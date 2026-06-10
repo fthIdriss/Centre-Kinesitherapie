@@ -295,7 +295,7 @@ export default function Home() {
       {/* ── About ── */}
       <section id="about" ref={aboutRef} className="py-20 lg:py-32 bg-primary text-white">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 gap-12 items-center">
             <div style={{ opacity: aboutInView ? 1 : 0, transform: aboutInView ? "translateX(0)" : "translateX(-50px)", transition: "all 1s ease-out" }}>
               <h2 className="text-4xl md:text-5xl mb-6 text-accent" style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700 }}>À Propos</h2>
               <div className="w-24 h-1 bg-accent mb-6"></div>
@@ -311,10 +311,6 @@ export default function Home() {
                   <p className="text-sm text-white/70">Années d'expérience</p>
                 </div>
               </div>
-            </div>
-            <div style={{ opacity: aboutInView ? 1 : 0, transform: aboutInView ? "translateX(0)" : "translateX(50px)", transition: "all 1s ease-out" }} className="relative">
-              <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663743332657/Uic2o6jsLW2y4JgPyh8HVE/gallery-professional-fXTFTAb8SLa56obygYU3u.webp" alt="Iskander - Physiotherapist" className="rounded-lg shadow-2xl w-full" />
-              <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-accent/20 rounded-full blur-3xl"></div>
             </div>
           </div>
         </div>
